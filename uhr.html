@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frankfurt & UTC Uhr</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f5f5f5;
+        font-family: "Segoe UI", Arial, sans-serif;
+        color: #333;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .clock {
+        background: white;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        min-width: 220px;
+        text-align: center;
+    }
+
+    .title {
+        font-size: 14px;
+        letter-spacing: 1px;
+        color: #777;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+    .time {
+        font-size: 42px;
+        font-weight: 300;
+    }
+
+    .date {
+        margin-top: 8px;
+        font-size: 14px;
+        color: #888;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="clock">
+        <div class="title">Frankfurt</div>
+        <div id="frankfurtTime" class="time">--:--:--</div>
+        <div id="frankfurtDate" class="date"></div>
+    </div>
+
+    <div class="clock">
+        <div class="title">UTC</div>
+        <div id="utcTime" class="time">--:--:--</div>
+        <div id="utcDate" class="date"></div>
+    </div>
+</div>
+
+<script>
+function updateClocks() {
+    const now = new Date();
+
+    document.getElementById('frankfurtTime').textContent =
+        now.toLocaleTimeString('de-DE', {
+            timeZone: 'Europe/Berlin',
+            hour12: false
+        });
+
+    document.getElementById('frankfurtDate').textContent =
+        now.toLocaleDateString('de-DE', {
+            timeZone: 'Europe/Berlin',
+            weekday: 'short',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        });
+
+    document.getElementById('utcTime').textContent =
+        now.toLocaleTimeString('de-DE', {
+            timeZone: 'UTC',
+            hour12: false
+        });
+
+    document.getElementById('utcDate').textContent =
+        now.toLocaleDateString('de-DE', {
+            timeZone: 'UTC',
+            weekday: 'short',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        });
+}
+
+updateClocks();
+setInterval(updateClocks, 1000);
+</script>
+
+</body>
+</html>
